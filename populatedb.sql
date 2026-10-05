@@ -189,4 +189,14 @@ INSERT INTO people (dni, first_name, last_name, age, email)
 VALUES ('88888888A', 'Pedro', 'Test', 30, 'pedro@test.es');
 */
 
+/*
+-- Primero necesitamos una persona en la tabla people
+INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+VALUES (1000, '11111111A', 'Carlos', 'Profesor', 45, 'carlos@us.es');
+
+-- Ahora intentamos crear el profesor con categoría inválida
+INSERT INTO professors (professor_id, category)
+VALUES (1000, 'Adjunto');
+*/
+
 
