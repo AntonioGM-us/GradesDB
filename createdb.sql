@@ -108,7 +108,17 @@ CREATE TABLE teaching_loads (
 ALTER TABLE people
     ADD CONSTRAINT rn12_people_age CHECK (age BETWEEN 16 AND 70),
     ADD CONSTRAINT rn14_people_dni CHECK (dni REGEXP '^[0-9]{8}[A-Za-z]$'),
-    ADD CONSTRAINT rn_uq_people_dni UNIQUE (dni),
+    ADD CONSTRAINT rn_uq_people_dni UNIQUE (dni),peoplepeople
     ADD CONSTRAINT rn_uq_people_email UNIQUE (email);
     
+ALTER TABLE professors
+    ADD CONSTRAINT ck_professors_category CHECK (
+        category IN ('Ayudante','AyudanteDoctor','Titular','Catedrático')
+    );
+    
+ALTER TABLE students
+    ADD CONSTRAINT ck_students_access_method CHECK (
+        access_method IN ('Selectividad','Ciclo','Mayor','Titulado','Extranjero')
+    );
+
 
