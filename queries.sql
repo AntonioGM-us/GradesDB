@@ -25,3 +25,5 @@ SELECT s.subject_name, s.acronym
 FROM subjects s
 WHERE subject_type = 'Formación Básica'; 
 
+
+
