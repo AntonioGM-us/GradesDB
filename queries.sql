@@ -25,5 +25,25 @@ SELECT s.subject_name, s.acronym
 FROM subjects s
 WHERE subject_type = 'Formación Básica'; 
 
+/*Consulta 5*/
+SELECT p.first_name, p.last_name, st.access_method
+FROM students st
+JOIN people p ON st.student_id = p.person_id
+WHERE st.access_method = 'Selectividad';
+
+/*Consulta 6*/
+SELECT p.first_name, p.last_name, pr.category
+FROM professors pr
+JOIN people p ON pr.professor_id = p.person_id
+WHERE pr.category = 'Catedrático';
+
+
+
+
+
+
+
+
+
 
 
