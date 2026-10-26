@@ -125,6 +125,24 @@ SELECT DISTINCT g.academic_year
 FROM groups g
 ORDER BY g.academic_year DESC;
 
+/*Consulta 20*/
+SELECT MAX(g.grade_value) AS max_grade
+FROM grades g
+WHERE g.student_id = 6;
+
+/*Consulta 21*/
+SELECT DISTINCT ge.student_id
+FROM students_groups ge
+WHERE ge.group_id IN (
+    SELECT g.group_id 
+    FROM groups g 
+    WHERE g.academic_year = 2024
+);
+
+/*Consulta 22*/
+SELECT s.subject_name, s.credits
+FROM subjects s
+WHERE s.credits > (SELECT AVG(credits) FROM subjects);
 
 
 
