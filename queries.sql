@@ -37,8 +37,33 @@ FROM professors pr
 JOIN people p ON pr.professor_id = p.person_id
 WHERE pr.category = 'Catedrático';
 
+/*VISTAS*/
 
+CREATE OR REPLACE VIEW v_professors AS
+SELECT 
+    pr.professor_id,
+    pr.category,
+    p.person_id,
+    p.dni,
+    p.first_name,
+    p.last_name,
+    p.age,
+    p.email
+FROM professors pr
+JOIN people p ON pr.professor_id = p.person_id;
 
+CREATE OR REPLACE VIEW v_students AS
+SELECT 
+    st.student_id,
+    st.access_method,
+    p.person_id,
+    p.dni,
+    p.first_name,
+    p.last_name,
+    p.age,
+    p.email
+FROM students st
+JOIN people p ON st.student_id = p.person_id;
 
 
 
