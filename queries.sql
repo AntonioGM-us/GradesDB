@@ -65,6 +65,33 @@ SELECT
 FROM students st
 JOIN people p ON st.student_id = p.person_id;
 
+/*Consulta 7*/
+SELECT AVG(g.grade_value) AS average_grade
+FROM grades g
+WHERE g.group_id = 1;
+
+/*Consulta 8*/
+SELECT SUM(s.credits) AS total_credits
+FROM subjects s 
+WHERE s.degree_id = 3;
+
+/*Consulta 9*/
+SELECT COUNT(*) AS total_students
+FROM students;
+
+/*Consulta 10*/
+SELECT activity, COUNT(*) AS total_groups
+FROM groups
+GROUP BY activity;
+
+/*Consulta 11*/
+SELECT MAX(g.grade_value) AS max_grade
+FROM grades g;
+
+/*Consulta 12*/
+SELECT MIN(g.grade_value) AS min_grade
+FROM grades g;
+
 
 
 
