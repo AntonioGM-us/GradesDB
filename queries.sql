@@ -356,3 +356,19 @@ SELECT
     g.exam_call
 FROM v_students st
 LEFT JOIN grades g ON st.student_id = g.student_id;
+
+/*Consulta 43*/
+
+/*Consulta 44*/
+
+/*Consulta 45*/
+
+/*Consulta 46*/
+
+/*Consulta 47*/
+
+/*Consulta 48*/
+
+/*Consulta 49*/
+
+/*Consulta 50*/
