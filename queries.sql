@@ -444,3 +444,4 @@ WHERE d.degree_id IN (
     GROUP BY degree_id
     HAVING COUNT(*) > 15
 );
+
