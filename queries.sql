@@ -4,7 +4,7 @@
 --              Cubre conceptos de consultas simples y avanzadas
 -- 
 
-USE gradesdb;
+USE grades_db;
 
 /*Consulta 1*/
 SELECT * 
