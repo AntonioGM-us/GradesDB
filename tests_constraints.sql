@@ -23,3 +23,22 @@ SELECT @avg_student_6 AS 'Promedio del estudiante 6';
 CALL p_student_average(7, @avg_student_7);
 CALL p_student_average(8, @avg_student_8);
 SELECT @avg_student_6, @avg_student_7, @avg_student_8;
+
+-- Ver las notas del grupo 1 antes de la actualización
+SELECT g.grade_id, p.first_name, p.last_name, g.grade_value, g.exam_call
+FROM grades g
+JOIN students s ON s.student_id = g.student_id
+JOIN people p ON p.person_id = s.student_id
+WHERE g.group_id = 1 AND g.exam_call = 'Primera'
+ORDER BY g.grade_value;
+
+-- Subir las notas del grupo 1 en la convocatoria 'Primera'
+CALL p_boost_group_grades(1, 'Primera');
+
+-- Verificar las notas después de la actualización
+SELECT g.grade_id, p.first_name, p.last_name, g.grade_value, g.exam_call
+FROM grades g
+JOIN students s ON s.student_id = g.student_id
+JOIN people p ON p.person_id = s.student_id
+WHERE g.group_id = 1 AND g.exam_call = 'Primera'
+ORDER BY g.grade_value;
