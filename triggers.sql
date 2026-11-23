@@ -26,3 +26,12 @@ WHERE s.degree_id = 3;
 SELECT s.subject_name
 FROM subjects s
 WHERE f_is_student_enrolled(6, s.subject_id) = TRUE;
+
+/*EJEMPLO 3*/
+-- Verificar si la asignatura 1 ya tiene el máximo de grupos de teoría en 2025
+SELECT f_subject_group_limit_reached(1, 'Teoría', 2025) AS 'Límite alcanzado';
+
+-- Listar asignaturas que han alcanzado el límite de grupos de teoría
+SELECT s.subject_id, s.subject_name, s.acronym
+FROM subjects s
+WHERE f_subject_group_limit_reached(s.subject_id, 'Teoría', 2025) = TRUE;
