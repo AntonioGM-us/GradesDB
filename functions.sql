@@ -17,4 +17,21 @@ BEGIN
     RETURN v_average;
 END //
 
-
+/*EJEMPLO 2*/
+-- RN07: indica si el alumno está matriculado en la asignatura.
+-- La usa el trigger t_biu_students_groups_rn04_rn07
+CREATE OR REPLACE FUNCTION f_is_student_enrolled(
+    p_student_id INT,
+    p_subject_id INT
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE v_exists INT;
+    SELECT COUNT(*) INTO v_exists
+    FROM students_subjects
+    WHERE student_id = p_student_id
+    AND subject_id = p_subject_id;
+    RETURN v_exists > 0;
+END //

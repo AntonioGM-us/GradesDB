@@ -14,3 +14,15 @@ SELECT p.first_name, p.last_name
 FROM people p
 JOIN students s ON s.student_id = p.person_id
 WHERE f_student_average(s.student_id) >= 7.0;
+
+/*EJEMPLO 2*/
+-- Listar asignaturas con indicador de matrícula del estudiante 6 del grado 3
+SELECT s.subject_id, s.subject_name,
+       f_is_student_enrolled(6, s.subject_id) AS matriculado
+FROM subjects s
+WHERE s.degree_id = 3;
+
+-- Usar en un WHERE
+SELECT s.subject_name
+FROM subjects s
+WHERE f_is_student_enrolled(6, s.subject_id) = TRUE;
