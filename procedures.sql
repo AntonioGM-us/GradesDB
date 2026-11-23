@@ -71,3 +71,50 @@ BEGIN
     SELECT v_group_name AS group_name,
            v_affected_rows AS updated_grades;
 END //
+
+-- Asigna las matrículas de honor de un grupo en una convocatoria: a las
+-- mejores notas a partir de 9, como máximo al 5 % de los alumnos del grupo
+CREATE OR REPLACE PROCEDURE p_assign_honors(
+    IN p_group_id INT,
+    IN p_exam_call VARCHAR(20)
+)
+BEGIN
+    DECLARE v_total_students INT;
+    DECLARE v_max_honors INT;
+
+    SELECT COUNT(*) INTO v_total_students
+    FROM students_groups
+    WHERE group_id = p_group_id;
+
+    -- FLOOR redondea hacia abajo: con menos de 20 alumnos no hay matrículas
+    SET v_max_honors = FLOOR(v_total_students * 0.05);
+
+    IF v_max_honors = 0 THEN
+        SELECT CONCAT('No se pueden asignar matrículas de honor: ',
+                      'el 5% de ', v_total_students,
+                      ' estudiantes matriculados es 0') AS mensaje;
+    ELSE
+        -- Se quitan las matrículas anteriores para volver a asignarlas
+        UPDATE grades
+        SET with_honors = 0
+        WHERE group_id = p_group_id
+          AND exam_call = p_exam_call;
+
+        -- MariaDB no admite LIMIT en una subconsulta con IN: por eso las notas
+        -- elegidas se calculan en una tabla derivada (selected_grades)
+        UPDATE grades
+        SET with_honors = 1
+        WHERE grade_id IN (
+            SELECT selected_grades.grade_id
+            FROM (
+                SELECT grade_id
+                FROM grades
+                WHERE group_id = p_group_id
+                  AND exam_call = p_exam_call
+                  AND grade_value >= 9.0
+                ORDER BY grade_value DESC
+                LIMIT v_max_honors
+            ) AS selected_grades
+        );
+    END IF;
+END //
