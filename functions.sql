@@ -68,3 +68,28 @@ BEGIN
 
     RETURN v_result;
 END //
+
+/*FUNCIONES PARA TRIGGERS*/
+-- RN04: indica si el alumno ya está en un grupo de la actividad (teoría o
+-- laboratorio) en la asignatura. La usa el trigger t_biu_students_groups_rn04_rn07
+CREATE OR REPLACE FUNCTION f_student_group_limit(
+    p_student_id INT,
+    p_subject_id INT,
+    p_activity VARCHAR(15)
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE v_count INT;
+    -- Grupos de esa asignatura y actividad en los que ya está el alumno
+    SELECT COUNT(*) INTO v_count
+    FROM students_groups ge
+    JOIN groups g ON g.group_id = ge.group_id
+    WHERE ge.student_id = p_student_id
+      AND g.subject_id = p_subject_id
+      AND g.activity = p_activity;
+
+    -- RN04: como máximo un grupo de cada actividad (teoría o laboratorio)
+    RETURN v_count >= 1;
+END//
