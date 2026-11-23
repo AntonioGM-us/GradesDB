@@ -31,3 +31,15 @@ BEGIN
     DELETE FROM degrees;
     DELETE FROM people;
 END //
+
+-- Devuelve en el parámetro de salida p_average la nota media del alumno
+-- (NULL si no tiene notas). Compárese con la función f_student_average (L5)
+CREATE OR REPLACE PROCEDURE p_student_average(
+    IN p_student_id INT,
+    OUT p_average DECIMAL(4,2)
+)
+BEGIN
+    SELECT AVG(grade_value) INTO p_average
+    FROM grades
+    WHERE student_id = p_student_id;
+END //
